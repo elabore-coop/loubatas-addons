@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <act_window name="Request compensation days"
+        res_model="timesheet.compensation.days.request"
+        src_model="account.analytic.line"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"
+        id="action_timesheet_compensation_days_request_view"/>
+
+    <record id="timesheet_compensation_days_request_view" model="ir.ui.view">
+        <field name="name">timesheet.compensation.days.request.view.form</field>
+        <field name="model">timesheet.compensation.days.request</field>
+        <field name="arch" type="xml">
+            <form string="Request compensation days">
+                <group>
+                    <field name="holiday_status_id"/>
+                    <field name="from_date" widget="calendar"/>
+                    <field name="to_date" widget="calendar"/>
+                    <field name="nb_working_days"/>
+                </group>
+                <footer>
+                    <button string="Validate request" name="compensation_days_request_validate" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
