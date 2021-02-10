@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="timesheet_view_tree_compensation" model="ir.ui.view">
+            <field name="name">account.analytic.line.view.tree.with.compensation</field>
+            <field name="model">account.analytic.line.with.compensation</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="mode">primary</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="considered_for_compensation_days" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

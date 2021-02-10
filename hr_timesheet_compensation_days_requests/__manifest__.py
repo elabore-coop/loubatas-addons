@@ -77,6 +77,7 @@ Elabore is a cooperative corporation whose mission is to support the collaborati
     # always loaded
     'data': [
         'wizard/timesheet_compensation_days_request_view.xml',
+        'views/hr_timesheet_views.xml'
     ],
     # only loaded in demonstration mode
     'demo': [],

@@ -12,15 +12,17 @@
         <field name="name">timesheet.compensation.days.request.view.form</field>
         <field name="model">timesheet.compensation.days.request</field>
         <field name="arch" type="xml">
-            <form string="Request compensation days">
+            <form string="Request compensation days addition">
                 <group>
                     <field name="holiday_status_id"/>
-                    <field name="from_date" widget="calendar"/>
-                    <field name="to_date" widget="calendar"/>
                     <field name="nb_working_days"/>
+                    <field name="nb_hours_per_day"/>
+                    <field name="expected_worked_hours"/>
+                    <field name="effective_worked_hour"/>
+                    <field name="nb_compensation_hours"/>
                 </group>
                 <footer>
-                    <button string="Validate request" name="compensation_days_request_validate" type="object" class="btn-primary"/>
+                    <button string="Add" name="compensation_days_request_validate" type="object" class="btn-primary"/>
                     <button string="Cancel" class="btn-secondary" special="cancel" />
                 </footer>
             </form>
