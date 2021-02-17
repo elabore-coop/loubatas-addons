@@ -71,7 +71,7 @@ Elabore is a cooperative corporation whose mission is to support the collaborati
     # any module necessary for this one to work correctly
     'depends': ['base',
                 'hr_timesheet',
-                'hr_holidays'
+                'hr_holidays',
             ],
 
     # always loaded

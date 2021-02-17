@@ -5,21 +5,30 @@
         src_model="account.analytic.line"
         view_mode="form"
         target="new"
-        key2="client_action_multi"
-        id="action_timesheet_compensation_days_request_view"/>
+        id="action_timesheet_compensation_days_request_wizard"/>
 
-    <record id="timesheet_compensation_days_request_view" model="ir.ui.view">
-        <field name="name">timesheet.compensation.days.request.view.form</field>
+    <record id="timesheet_compensation_days_request_wizard" model="ir.ui.view">
+        <field name="name">timesheet.compensation.days.request.wizard.form</field>
         <field name="model">timesheet.compensation.days.request</field>
         <field name="arch" type="xml">
             <form string="Request compensation days addition">
                 <group>
-                    <field name="holiday_status_id"/>
-                    <field name="nb_working_days"/>
-                    <field name="nb_hours_per_day"/>
-                    <field name="expected_worked_hours"/>
-                    <field name="effective_worked_hour"/>
-                    <field name="nb_compensation_hours"/>
+                    <group>
+                        <field name="from_date" widget="calendar"/>
+                    </group>
+                    <group>
+                        <field name="to_date" widget="calendar"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="holiday_status_id"/>
+                        <field name="nb_working_days"/>
+                        <field name="nb_hours_per_day"/>
+                        <field name="expected_worked_hours"/>
+                        <field name="effective_worked_hours"/>
+                        <field name="nb_compensation_hours"/>
+                    </group>
                 </group>
                 <footer>
                     <button string="Add" name="compensation_days_request_validate" type="object" class="btn-primary"/>
@@ -28,4 +37,11 @@
             </form>
         </field>
     </record>
+
+    <menuitem 
+        id="menu_timesheet_compensation_days_request" 
+        parent="hr_timesheet.menu_hr_time_tracking"
+        action="action_timesheet_compensation_days_request_wizard" 
+        name="Request compensation days"             
+        sequence="100"/>
 </odoo>
