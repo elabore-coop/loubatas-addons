@@ -9,8 +9,14 @@ class CompensationDaysRequest(models.TransientModel):
     _name = "timesheet.compensation.days.request"
     _description = "Compensation days request"
 
+    def _default_number_hours_per_day(self):
+        employee_id = self.env.context.get('default_employee_id') or self.env['hr.employee'].search([('user_id', '=', self.env.uid)], limit=1)
+        return employee_id.sudo().resource_id.calendar_id.hours_per_day
+
+
     timesheet_entries = fields.Many2many(
-        comodel_name="account.analytic.line", relation="list_wizard_timeshiit")
+        comodel_name = "account.analytic.line", 
+        relation = "list_wizard_timesheet")
 
     holiday_status_id = fields.Many2one(
         "hr.leave.type", 
@@ -28,36 +34,42 @@ class CompensationDaysRequest(models.TransientModel):
         required = True
     )
 
+    ##################
+    # Read Only fields
+    ##################
     nb_working_days = fields.Float(
         string = 'Worked days',
-        readonly=True,
+        readonly = True,
         default = '0'
     )
 
     nb_hours_per_day = fields.Float(
         string = 'Hours worked/day',
-        required = False,
-        default = '7'
+        readonly = True,
+        default = _default_number_hours_per_day
     )
 
     expected_worked_hours = fields.Float(
-        string = 'Expected worked hours',
-        required = True,
+        string = 'Expected hours',
+        readonly = True,
         default = '0'
     )
 
     effective_worked_hours = fields.Float(
         string = 'Worked hours',
-        readonly=True,
-        default='0'
+        readonly = True,
+        default = '0'
     )
 
     nb_compensation_hours = fields.Float(
-        readonly=True,
-        default='0'
+        string = 'Hours requested',
+        readonly = True,
+        default = '0'
     )
 
-
+    ##################
+    # Wizard's methods
+    ##################
     def _calculate_nb_compensation_hours(self):        
         if self.effective_worked_hours > self.expected_worked_hours:
             self.nb_compensation_hours = self.effective_worked_hours - self.expected_worked_hours
@@ -70,6 +82,8 @@ class CompensationDaysRequest(models.TransientModel):
         # Get all the timesheet entries in the period selected
         self.timesheet_entries = self.env['account.analytic.line'].search([('date', '>=', self.from_date), ('date', '<=', self.to_date)])
         
+        self.effective_worked_hours = 0
+        self.nb_working_days = 0
         current_date = datetime(2000, 1, 1).date
         for timesheet_entry in self.timesheet_entries:
             if not timesheet_entry.considered_for_compensation_days:
@@ -80,13 +94,6 @@ class CompensationDaysRequest(models.TransientModel):
                     self.nb_working_days += 1
                     current_date = timesheet_entry.date
         
-        self.expected_worked_hours = self.nb_working_days * self.nb_hours_per_day
-        self._calculate_nb_compensation_hours()
-
-
-    @api.onchange('nb_hours_per_day')
-    def on_change_work_data(self):
-        """ This function calculate a proposed expected_worked_hours"""
         self.expected_worked_hours = self.nb_working_days * self.nb_hours_per_day
         self._calculate_nb_compensation_hours()
 

@@ -1,0 +1,133 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* hr_timesheet_compensation_days_requests
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-18 08:47+0000\n"
+"PO-Revision-Date: 2021-02-18 08:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_timesheet_compensation_days_requests
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_compensation_days_requests.timesheet_compensation_days_request_wizard
+msgid "Add"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model,name:hr_timesheet_compensation_days_requests.model_account_analytic_line
+msgid "Analytic Line"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_compensation_days_requests.timesheet_compensation_days_request_wizard
+msgid "Cancel"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model,name:hr_timesheet_compensation_days_requests.model_timesheet_compensation_days_request
+msgid "Compensation days request"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_account_analytic_line__considered_for_compensation_days
+msgid "Considered For Compensation Days"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__to_date
+msgid "End date"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__expected_worked_hours
+msgid "Expected hours"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__nb_compensation_hours
+msgid "Hours requested"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__nb_hours_per_day
+msgid "Hours worked/day"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.actions.act_window,name:hr_timesheet_compensation_days_requests.action_timesheet_compensation_days_request_wizard
+#: model:ir.ui.menu,name:hr_timesheet_compensation_days_requests.menu_timesheet_compensation_days_request
+msgid "Request compensation days"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_compensation_days_requests.timesheet_compensation_days_request_wizard
+msgid "Request compensation days addition"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__from_date
+msgid "Start date"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__holiday_status_id
+msgid "Time Off Type"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__timesheet_entries
+msgid "Timesheet Entries"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__nb_working_days
+msgid "Worked days"
+msgstr ""
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__effective_worked_hours
+msgid "Worked hours"
+msgstr ""
+
