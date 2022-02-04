@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
 import logging
 import time
-from odoo import api, fields, models
+
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -102,6 +104,14 @@ class CompensationDaysRequest(models.TransientModel):
 
     @api.multi
     def compensation_days_request_validate(self):
+        # Check from_date and to_date are a Monday and a Sunday
+        if (self.from_date.weekday() != 0) or (self.to_date.weekday() != 6):
+            raise UserError(
+                _(
+                    "Please enter a Monday in from_date field, and a Sunday in to_date field"
+                )
+            )
+
         # Last check of the compensation hours to be registered
         self.calculate_compensation_days()
 

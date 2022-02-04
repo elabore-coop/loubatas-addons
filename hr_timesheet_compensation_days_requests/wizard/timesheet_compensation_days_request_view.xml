@@ -15,9 +15,11 @@
                 <group>
                     <group>
                         <field name="from_date" widget="calendar"/>
+                        <p>You must select a Monday</p>
                     </group>
                     <group>
                         <field name="to_date" widget="calendar"/>
+                        <p>You must select a Sunday</p>
                     </group>
                 </group>
                 <group>
