@@ -82,7 +82,12 @@ class CompensationDaysRequest(models.TransientModel):
                         )
                         if not (timesheet_entry.date == current_date):
                             # the employee has worked another day
-                            sub_nb_working_days += 1
+                            if (
+                                timesheet_entry.date.weekday()
+                                in self.employee_id.sudo().resource_id.calendar_id.get_work_days_expected()
+                            ):
+                                # the employee has worked on a expected day
+                                sub_nb_working_days += 1
                             current_date = timesheet_entry.date
 
                 sub_expected_worked_hours = min(
