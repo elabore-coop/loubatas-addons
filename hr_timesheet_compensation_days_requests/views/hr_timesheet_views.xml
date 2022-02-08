@@ -4,12 +4,12 @@
         <record id="timesheet_view_tree_compensation" model="ir.ui.view">
             <field name="name">account.analytic.line.view.tree.with.compensation</field>
             <field name="model">account.analytic.line</field>
-            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree" />
             <field name="mode">extension</field>
             <field name="priority">100</field>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='unit_amount']" position="after">
-                    <field name="considered_for_compensation_days" />
+                    <field name="considered_for_compensation_days" readonly="1" />
                 </xpath>
             </field>
         </record>

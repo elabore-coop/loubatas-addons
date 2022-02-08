@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <act_window name="Request compensation days"
-        res_model="timesheet.compensation.days.request"
-        src_model="account.analytic.line"
-        view_mode="form"
-        target="new"
-        id="action_timesheet_compensation_days_request_wizard"/>
+    <act_window name="Request compensation days" res_model="timesheet.compensation.days.request" src_model="account.analytic.line" view_mode="form" target="new" id="action_timesheet_compensation_days_request_wizard" />
 
     <record id="timesheet_compensation_days_request_wizard" model="ir.ui.view">
         <field name="name">timesheet.compensation.days.request.wizard.form</field>
@@ -14,34 +9,31 @@
             <form string="Request compensation days addition">
                 <group>
                     <group>
-                        <field name="from_date" widget="calendar"/>
+                        <field name="from_date" widget="calendar" />
+                        <p>You must select a Monday</p>
                     </group>
                     <group>
-                        <field name="to_date" widget="calendar"/>
+                        <field name="to_date" widget="calendar" />
+                        <p>You must select a Sunday</p>
                     </group>
                 </group>
                 <group>
                     <group>
-                        <field name="holiday_status_id"/>
-                        <field name="nb_working_days"/>
-                        <field name="nb_hours_per_day"/>
-                        <field name="expected_worked_hours"/>
-                        <field name="effective_worked_hours"/>
-                        <field name="nb_compensation_hours"/>
+                        <field name="holiday_status_id" />
+                        <field name="nb_working_days" />
+                        <field name="nb_hours_per_day" />
+                        <field name="expected_worked_hours" />
+                        <field name="effective_worked_hours" />
+                        <field name="nb_compensation_hours" />
                     </group>
                 </group>
                 <footer>
-                    <button string="Add" name="compensation_days_request_validate" type="object" class="btn-primary"/>
+                    <button string="Add" name="compensation_days_request_validate" type="object" class="btn-primary" />
                     <button string="Cancel" class="btn-secondary" special="cancel" />
                 </footer>
             </form>
         </field>
     </record>
 
-    <menuitem 
-        id="menu_timesheet_compensation_days_request" 
-        parent="hr_timesheet.menu_hr_time_tracking"
-        action="action_timesheet_compensation_days_request_wizard" 
-        name="Request compensation days"             
-        sequence="100"/>
+    <menuitem id="menu_timesheet_compensation_days_request" parent="hr_timesheet.menu_hr_time_tracking" action="action_timesheet_compensation_days_request_wizard" name="Request compensation days" sequence="100" />
 </odoo>
