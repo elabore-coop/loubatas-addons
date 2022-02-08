@@ -11,6 +11,11 @@ _logger = logging.getLogger(__name__)
 class CompensationDaysRequest(models.TransientModel):
     _name = "timesheet.compensation.days.request"
     _description = "Compensation days request"
+    
+    timesheet_entries = fields.Many2many(
+        comodel_name="account.analytic.line", relation="list_wizard_timesheet"
+    )
+
 
     employee_id = fields.Many2one("hr.employee", readonly=True)
     holiday_status_id = fields.Many2one(
@@ -18,7 +23,11 @@ class CompensationDaysRequest(models.TransientModel):
     )
     from_date = fields.Date(string="Start date", required=True)
     to_date = fields.Date(string="End date", required=True)
-    nb_working_days = fields.Float(string="Worked days", readonly=True, default="0")
+
+    nb_expected_and_worked_days = fields.Float(
+        string="Worked days", readonly=True, default="0"
+    )
+
     nb_hours_per_day = fields.Float(string="Hours worked/day", readonly=True)
     expected_worked_hours = fields.Float(
         string="Expected hours", readonly=True, default="0"
@@ -48,7 +57,7 @@ class CompensationDaysRequest(models.TransientModel):
             self.expected_worked_hours = 0
             self.effective_worked_hours = 0
             self.nb_compensation_hours = 0
-            self.nb_working_days = 0
+            self.nb_expected_and_worked_days = 0
             self.employee_id = self.env.context.get("default_employee_id") or self.env[
                 "hr.employee"
             ].search([("user_id", "=", self.env.uid)], limit=1)
@@ -56,69 +65,43 @@ class CompensationDaysRequest(models.TransientModel):
                 self.employee_id.sudo().resource_id.calendar_id.hours_per_day
             )
             current_date = datetime(2000, 1, 1).date
-            # Cycles on 7 days sub-periods
-            date_start_sub_period = self.from_date
-            date_end_sub_period = min(
-                (self.from_date + timedelta(days=6)), self.to_date
+
+            self.timesheet_entries = self.env["account.analytic.line"].search(
+                [
+                    ("date", ">=", self.from_date),
+                    ("date", "<=", self.to_date),
+                    ("employee_id", "=", self.employee_id.id),
+                    ("considered_for_compensation_days", "=", False),
+                ]
             )
-            while (date_end_sub_period <= self.to_date) and (
-                date_start_sub_period < self.to_date
-            ):
-                # Ititialization of sub values
-                sub_effective_worked_hours = 0
-                sub_nb_working_days = 0
-                sub_timesheet_entries = self.env["account.analytic.line"].search(
-                    [
-                        ("date", ">=", date_start_sub_period),
-                        ("date", "<=", date_end_sub_period),
-                        ("employee_id", "=", self.employee_id.id),
-                    ]
-                )
-                for timesheet_entry in sub_timesheet_entries:
-                    if not timesheet_entry.considered_for_compensation_days:
-                        # the analytic.account.line has not been considered yet in the compensation days calculations
-                        sub_effective_worked_hours = (
-                            sub_effective_worked_hours + timesheet_entry.unit_amount
-                        )
-                        if not (timesheet_entry.date == current_date):
-                            # the employee has worked another day
-                            if (
-                                timesheet_entry.date.weekday()
-                                in self.employee_id.sudo().resource_id.calendar_id.get_work_days_expected()
-                            ):
-                                # the employee has worked on a expected day
-                                sub_nb_working_days += 1
-                            current_date = timesheet_entry.date
 
-                sub_expected_worked_hours = min(
-                    sub_nb_working_days * self.nb_hours_per_day,
-                    self.employee_id.sudo().resource_id.calendar_id.total_hours_per_week,
-                )
-
-                if sub_effective_worked_hours > sub_expected_worked_hours:
-                    sub_nb_compensation_hours = (
-                        sub_effective_worked_hours - sub_expected_worked_hours
-                    )
-                else:
-                    sub_nb_compensation_hours = 0
-
-                # Update total values
-                self.nb_working_days = self.nb_working_days + sub_nb_working_days
-                self.expected_worked_hours = (
-                    self.expected_worked_hours + sub_expected_worked_hours
-                )
+            for timesheet_entry in self.timesheet_entries:
                 self.effective_worked_hours = (
-                    self.effective_worked_hours + sub_effective_worked_hours
+                    self.effective_worked_hours + timesheet_entry.unit_amount
                 )
-                self.nb_compensation_hours = (
-                    self.nb_compensation_hours + sub_nb_compensation_hours
-                )
+                if not (timesheet_entry.date == current_date):
+                    # the employee has worked another day
+                    if (
+                        timesheet_entry.date.weekday()
+                        in self.employee_id.sudo().resource_id.calendar_id.get_work_days_expected()
+                    ):
+                        # the employee has worked on a expected day
+                        self.nb_expected_and_worked_days += 1
+                    current_date = timesheet_entry.date
 
-                # Increment dates to make the calculation on the next week.
-                date_start_sub_period = date_start_sub_period + timedelta(days=7)
-                date_end_sub_period = min(
-                    date_start_sub_period + timedelta(days=6), self.to_date
+            self.nb_hours_per_day = (
+                self.employee_id.sudo().resource_id.calendar_id.hours_per_day
+            )
+            self.expected_worked_hours = (
+                self.nb_expected_and_worked_days * self.nb_hours_per_day
+            )
+
+            if self.effective_worked_hours > self.expected_worked_hours:
+                self.nb_compensation_hours = (
+                    self.effective_worked_hours - self.expected_worked_hours
                 )
+            else:
+                self.nb_compensation_hours = 0
 
     @api.multi
     def compensation_days_request_validate(self):
