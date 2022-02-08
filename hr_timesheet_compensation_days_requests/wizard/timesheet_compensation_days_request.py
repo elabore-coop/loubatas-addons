@@ -11,9 +11,11 @@ _logger = logging.getLogger(__name__)
 class CompensationDaysRequest(models.TransientModel):
     _name = "timesheet.compensation.days.request"
     _description = "Compensation days request"
+    
     timesheet_entries = fields.Many2many(
         comodel_name="account.analytic.line", relation="list_wizard_timesheet"
     )
+
 
     employee_id = fields.Many2one("hr.employee", readonly=True)
     holiday_status_id = fields.Many2one(
@@ -21,9 +23,11 @@ class CompensationDaysRequest(models.TransientModel):
     )
     from_date = fields.Date(string="Start date", required=True)
     to_date = fields.Date(string="End date", required=True)
+
     nb_expected_and_worked_days = fields.Float(
         string="Worked days", readonly=True, default="0"
     )
+
     nb_hours_per_day = fields.Float(string="Hours worked/day", readonly=True)
     expected_worked_hours = fields.Float(
         string="Expected hours", readonly=True, default="0"
@@ -115,7 +119,14 @@ class CompensationDaysRequest(models.TransientModel):
         )
 
         # Check the timesheet lines to ensure they won't be considered in the calculation later
-        for timesheet_entry in self.timesheet_entries:
+        all_timesheet_entries = self.env["account.analytic.line"].search(
+            [
+                ("date", ">=", self.from_date),
+                ("date", "<=", self.to_date),
+                ("employee_id", "=", self.employee_id.id),
+            ]
+        )
+        for timesheet_entry in all_timesheet_entries:
             if (timesheet_entry.employee_id == self.employee_id) and (
                 not timesheet_entry.considered_for_compensation_days
             ):
