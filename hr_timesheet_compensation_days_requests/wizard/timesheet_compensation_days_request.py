@@ -109,9 +109,10 @@ class CompensationDaysRequest(models.TransientModel):
         self.calculate_compensation_days()
 
         nb_compensations_days = self.nb_compensation_hours / self.nb_hours_per_day
+        name = _("Request for compensation hours due to extra hours - from %s to %s") % (self.from_date, self.to_date)
         self.env["hr.leave.allocation"].create(
             {
-                "name": "request for compensation hours due to extra hours",
+                "name": name,
                 "employee_id": self.employee_id.id,
                 "holiday_status_id": self.holiday_status_id.id,
                 "number_of_days": nb_compensations_days,
