@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-18 08:47+0000\n"
-"PO-Revision-Date: 2021-02-18 08:47+0000\n"
+"POT-Creation-Date: 2022-10-03 15:24+0000\n"
+"PO-Revision-Date: 2022-10-03 15:24+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "Ajouter"
 #. module: hr_timesheet_compensation_days_requests
 #: model:ir.model,name:hr_timesheet_compensation_days_requests.model_account_analytic_line
 msgid "Analytic Line"
-msgstr "Ligne de temps"
+msgstr "Ligne analytique"
 
 #. module: hr_timesheet_compensation_days_requests
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_compensation_days_requests.timesheet_compensation_days_request_wizard
@@ -56,6 +56,11 @@ msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: hr_timesheet_compensation_days_requests
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__employee_id
+msgid "Employee"
+msgstr "Employé"
+
+#. module: hr_timesheet_compensation_days_requests
 #: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__to_date
 msgid "End date"
 msgstr "Jusqu'au"
@@ -78,7 +83,7 @@ msgstr "Heures contractuelles/jour"
 #. module: hr_timesheet_compensation_days_requests
 #: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: hr_timesheet_compensation_days_requests
 #: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request____last_update
@@ -88,12 +93,18 @@ msgstr "Dernière modification le"
 #. module: hr_timesheet_compensation_days_requests
 #: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__write_uid
 msgid "Last Updated by"
-msgstr "Dernière modification par"
+msgstr "Dernière mise à jour par"
 
 #. module: hr_timesheet_compensation_days_requests
 #: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
+
+#. module: hr_timesheet_compensation_days_requests
+#: code:addons/hr_timesheet_compensation_days_requests/wizard/timesheet_compensation_days_request.py:51
+#, python-format
+msgid "Please enter a Monday in from_date field, and a Sunday in to_date field"
+msgstr "Merci de saisir un Lundi comme date de début, et un Dimanche en date de fin"
 
 #. module: hr_timesheet_compensation_days_requests
 #: model:ir.actions.act_window,name:hr_timesheet_compensation_days_requests.action_timesheet_compensation_days_request_wizard
@@ -105,6 +116,17 @@ msgstr "Demander des jours de compensation"
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_compensation_days_requests.timesheet_compensation_days_request_wizard
 msgid "Request compensation days addition"
 msgstr "Demande d'ajout de jours de compensation"
+
+#. module: hr_timesheet_compensation_days_requests
+#: code:addons/hr_timesheet_compensation_days_requests/wizard/timesheet_compensation_days_request.py:112
+#, python-format
+msgid "Request for compensation hours due to extra hours - from %s to %s"
+msgstr "Demande d'heures de compensation - du %s au %s"
+
+#. module: hr_timesheet_compensation_days_requests
+#: model:ir.model,name:hr_timesheet_compensation_days_requests.model_resource_calendar
+msgid "Resource Working Time"
+msgstr "Temps de travail de la ressource"
 
 #. module: hr_timesheet_compensation_days_requests
 #: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__from_date
@@ -122,7 +144,7 @@ msgid "Timesheet Entries"
 msgstr ""
 
 #. module: hr_timesheet_compensation_days_requests
-#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__nb_working_days
+#: model:ir.model.fields,field_description:hr_timesheet_compensation_days_requests.field_timesheet_compensation_days_request__nb_expected_and_worked_days
 msgid "Worked days"
 msgstr "Jours travaillés"
 
@@ -131,3 +153,12 @@ msgstr "Jours travaillés"
 msgid "Worked hours"
 msgstr "Heures travaillées"
 
+#. module: hr_timesheet_compensation_days_requests
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_compensation_days_requests.timesheet_compensation_days_request_wizard
+msgid "You must select a Monday"
+msgstr "Merci de sélectionner un Lundi"
+
+#. module: hr_timesheet_compensation_days_requests
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_compensation_days_requests.timesheet_compensation_days_request_wizard
+msgid "You must select a Sunday"
+msgstr "Merci de sélectionner un Dimanche"
